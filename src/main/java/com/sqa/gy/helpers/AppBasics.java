@@ -38,6 +38,11 @@ public class AppBasics {
 		System.out.println("Bye for now, " + nameOfUser + "!");
 	}
 
+	public static String greetNoUserName(String appName) {
+		System.out.println("Hello there and welcome to the " + appName + " app.");
+		return scanner.nextLine();
+	}
+
 	public static String greetUser(String appName) {
 		System.out.println("Hello and welcome to the " + appName + " app.");
 		System.out.print("What shall I call you? ");
@@ -137,6 +142,36 @@ public class AppBasics {
 				System.out.println("You have not entered a number within the range of " + min + " and " + max + ".");
 			}
 			isNotValid = false;
+		}
+		return result;
+	}
+
+	public static int requestIntFromUserexptCASHOUTorEXIT(String question, int min, int max) {
+		String input;
+		int result = 0;
+		boolean isNotValid = true;
+		while (isNotValid) {
+			try {
+				System.out.print(question + " ");
+				input = scanner.nextLine();
+				if (input.equalsIgnoreCase("Cash Out") || input.equalsIgnoreCase("Exit")) {
+					return -1;
+				} else {
+					result = Integer.parseInt(input);
+					if (min != 0 && max != 0) {
+						if (result <= max && result >= min) {
+							isNotValid = false;
+						} else {
+							throw new NumberNotInRangeException();
+						}
+					}
+				}
+				isNotValid = false;
+			} catch (NumberFormatException e) {
+				System.out.println("You have not entered a correct number value.");
+			} catch (NumberNotInRangeException e) {
+				System.out.println("You have not entered a number within the range of " + min + " and " + max + ".");
+			}
 		}
 		return result;
 	}
