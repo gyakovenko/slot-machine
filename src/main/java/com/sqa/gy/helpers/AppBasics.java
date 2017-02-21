@@ -28,14 +28,14 @@ public class AppBasics {
 		return total;
 	}
 
-	public static int convertStringtoInt(String input, int min, int max) {
+	public static int convertStringtoInt(String input, int minInclusive, int maxInclusive) {
 		int result = 0;
 		boolean isNotValid = true;
 		while (isNotValid) {
 			try {
 				result = Integer.parseInt(input);
-				if (min != 0 && max != 0) {
-					if (result < max && result > min) {
+				if (minInclusive != 0 && maxInclusive != 0) {
+					if (result <= maxInclusive && result >= minInclusive) {
 						isNotValid = false;
 					} else {
 						throw new NumberNotInRangeException();
@@ -44,7 +44,8 @@ public class AppBasics {
 			} catch (NumberFormatException e) {
 				System.out.println("You have not entered a correct number value.");
 			} catch (NumberNotInRangeException e) {
-				System.out.println("You have not entered a number within the range of " + min + " and " + max + ".");
+				System.out.println("You have not entered a number within the range of " + minInclusive + " and "
+						+ maxInclusive + ".");
 			}
 			isNotValid = false;
 		}
@@ -61,7 +62,7 @@ public class AppBasics {
 	}
 
 	public static String greetNoUserName(String appName) {
-		System.out.println("Hello there and welcome to the " + appName + " app.");
+		System.out.println("Hello there and welcome to the " + appName + " app." + "\nPress \'return\' to begin.");
 		return scanner.nextLine();
 	}
 
@@ -232,23 +233,6 @@ public class AppBasics {
 		System.out.print(prompt + " ");
 		String response = scanner.nextLine();
 		return response;
-	}
-
-	public static int requestUserInt(String question) {
-		String input;
-		int result = 0;
-		boolean isNotValid = true;
-		while (isNotValid) {
-			try {
-				System.out.print(question + " ");
-				String response = scanner.nextLine();
-				result = Integer.parseInt(response);
-				isNotValid = false;
-			} catch (NumberFormatException e) {
-				System.out.print("The value you have entered is invalid. ");
-			}
-		}
-		return result;
 	}
 
 	public static boolean requestYesorNo(String prompt) {
